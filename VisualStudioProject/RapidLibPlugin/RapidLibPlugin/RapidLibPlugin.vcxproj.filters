@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\rapidlib">
+      <UniqueIdentifier>{31e72192-4151-4399-9a10-9d0c14255408}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rapidlib\dependencies">
+      <UniqueIdentifier>{ebefb471-e18f-4a7f-9f3f-610d000fef3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rapidlib\dependencies\libsvm">
+      <UniqueIdentifier>{bd4d8af8-5463-4f3d-bae5-06445c343c0f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\src\baseModel.h">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\src\classification.h">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\src\knnClassification.h">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\src\knnEmbindings.h">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\src\modelSet.h">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\src\neuralNetwork.h">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\src\regression.h">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\src\dtw.h">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\src\rapidStream.h">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\src\seriesClassification.h">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\src\svmClassification.h">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\src\trainingExample.h">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\dependencies\json\json.h">
+      <Filter>Source Files\rapidlib\dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\dependencies\json\json-forwards.h">
+      <Filter>Source Files\rapidlib\dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\rapidlib\dependencies\libsvm\libsvm.h">
+      <Filter>Source Files\rapidlib\dependencies\libsvm</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Plugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\rapidlib\src\classification.cpp">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\rapidlib\src\knnClassification.cpp">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\rapidlib\src\modelSet.cpp">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\rapidlib\src\neuralNetwork.cpp">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\rapidlib\src\regression.cpp">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\rapidlib\src\dtw.cpp">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\rapidlib\src\rapidStream.cpp">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\rapidlib\src\seriesClassification.cpp">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\rapidlib\src\svmClassification.cpp">
+      <Filter>Source Files\rapidlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\rapidlib\dependencies\jsoncpp.cpp">
+      <Filter>Source Files\rapidlib\dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\rapidlib\dependencies\libsvm\libsvm.cpp">
+      <Filter>Source Files\rapidlib\dependencies\libsvm</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
