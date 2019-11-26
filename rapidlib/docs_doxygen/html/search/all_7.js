@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['knnclassification',['knnClassification',['../classknn_classification.html',1,'knnClassification'],['../classknn_classification.html#a37873bbb03dea575d878b0205a4d1b39',1,'knnClassification::knnClassification()']]],
-  ['knnclassification_2ecpp',['knnClassification.cpp',['../knn_classification_8cpp.html',1,'']]],
-  ['knnclassification_2eh',['knnClassification.h',['../knn_classification_8h.html',1,'']]],
-  ['knnembindings_2eh',['knnEmbindings.h',['../knn_embindings_8h.html',1,'']]]
+  ['indices',['indices',['../classwarp_path.html#aa772779caea3971fda4afd599e4f52d5',1,'warpPath']]],
+  ['init',['init',['../classsvm_classification.html#aa3c095477366a40e13734788df155399',1,'svmClassification']]],
+  ['input',['input',['../structtraining_example_template.html#a12233e3f482d291c2188fb5d3cff05f5',1,'trainingExampleTemplate::input()'],['../structtraining_series_template.html#af86c9caab325fecdcaf73b99d6fd8f03',1,'trainingSeriesTemplate::input()']]],
+  ['inputnames',['inputNames',['../classmodel_set.html#abfecf38aea9d66c9becd61f9051f86fd',1,'modelSet']]]
 ];

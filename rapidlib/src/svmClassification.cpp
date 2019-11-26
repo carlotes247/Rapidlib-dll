@@ -1,23 +1,33 @@
+/**
+ * @file svmClassification.cpp
+ * RapidLib
+ *
+ * @author Michael Zbyszynski
+ * @date 23 Feb 2017
+ * @copyright Copyright © 2017 Goldsmiths. All rights reserved.
+ */
+
 #include <iostream>
 #include "svmClassification.h"
 #ifdef EMSCRIPTEN
 #include "emscripten/svmEmbindings.h"
 #endif
 
-svmClassification::svmClassification(
-                                     KernelType kernelType,
-                                     SVMType svmType,
-                                     bool useScaling,
-                                     bool useNullRejection,
-                                     bool useAutoGamma,
-                                     float gamma,
-                                     unsigned int degree,
-                                     float coef0,
-                                     float nu,
-                                     float C,
-                                     bool useCrossValidation,
-                                     unsigned int kFoldValue
-                                     )
+template<typename T>
+svmClassification<T>::svmClassification(
+                                        KernelType kernelType,
+                                        SVMType svmType,
+                                        bool useScaling,
+                                        bool useNullRejection,
+                                        bool useAutoGamma,
+                                        float gamma,
+                                        unsigned int degree,
+                                        float coef0,
+                                        float nu,
+                                        float C,
+                                        bool useCrossValidation,
+                                        unsigned int kFoldValue
+                                        )
 {
     
     //Setup the default SVM parameters
@@ -57,7 +67,8 @@ svmClassification::svmClassification(
     init(kernelType,svmType,useScaling,useNullRejection,useAutoGamma,gamma,degree,coef0,nu,C,useCrossValidation,kFoldValue);
 }
 
-svmClassification::svmClassification(int num_inputs) {
+template<typename T>
+svmClassification<T>::svmClassification(int num_inputs) {
     
     numInputs = num_inputs;
     
@@ -85,31 +96,34 @@ svmClassification::svmClassification(int num_inputs) {
     param.nr_weight = 0;
     param.weight_label = NULL;
     param.weight = NULL;
-
-}
-
-svmClassification::~svmClassification() {
     
 }
 
-void svmClassification::reset() {
+template<typename T>
+svmClassification<T>::~svmClassification() {
+    
+}
+
+template<typename T>
+void svmClassification<T>::reset() {
     //TODO: implement me
 }
 
-bool svmClassification::init(
-                             KernelType kernelType,
-                             SVMType svmType,
-                             bool useScaling,
-                             bool useNullRejection,
-                             bool useAutoGamma,
-                             float gamma,
-                             unsigned int degree,
-                             float coef0,
-                             float nu,
-                             float C,
-                             bool useCrossValidation,
-                             unsigned int kFoldValue
-                             ){
+template<typename T>
+bool svmClassification<T>::init(
+                                KernelType kernelType,
+                                SVMType svmType,
+                                bool useScaling,
+                                bool useNullRejection,
+                                bool useAutoGamma,
+                                float gamma,
+                                unsigned int degree,
+                                float coef0,
+                                float nu,
+                                float C,
+                                bool useCrossValidation,
+                                unsigned int kFoldValue
+                                ){
     
     /*
      //Clear any previous models or problems
@@ -154,11 +168,12 @@ bool svmClassification::init(
     return true;
 }
 
-void svmClassification::train(const std::vector<trainingExample> &trainingSet) {
+template<typename T>
+void svmClassification<T>::train(const std::vector<trainingExampleTemplate<T> > &trainingSet) {
     //TODO: should be scaling data -1 to 1
     //Get normalization parameters
-    std::vector<double> inMax = trainingSet[0].input;
-    std::vector<double> inMin = trainingSet[0].input;
+    std::vector<T> inMax = trainingSet[0].input;
+    std::vector<T> inMin = trainingSet[0].input;
     for (int ti = 1; ti < (int) trainingSet.size(); ++ti) {
         for (int i = 0; i < numInputs; ++i) {
             if (trainingSet[ti].input[i] > inMax[i]) {
@@ -180,7 +195,7 @@ void svmClassification::train(const std::vector<trainingExample> &trainingSet) {
             inRanges[i] = 1.0; //Prevent divide by zero later.
         }
     }
-
+    
     //initialize problem
     problem.l = 0;
     problem.x = NULL;
@@ -196,19 +211,20 @@ void svmClassification::train(const std::vector<trainingExample> &trainingSet) {
         problem.y[i] = trainingSet[i].output[0]; //model set makes this a one item list
         problem.x[i] = new LIBSVM::svm_node[numberOfFeatures + 1]; //dummy node at the end of array
         for (int j = 0; j < numberOfFeatures; j++) {
-        // x = svn_nodes[]  == index and value pairs
+            // x = svn_nodes[]  == index and value pairs
             problem.x[i][j].index = j + 1;
             problem.x[i][j].value = ((trainingSet[i].input[j] - inBases[j]) / inRanges[j]); //TODO: make normalization optional
         }
         problem.x[i][numberOfFeatures].index = -1; //Assign the final node value
         problem.x[i][numberOfFeatures].value = 0;
     }
-  
+    
     model = LIBSVM::svm_train(&problem, &param);
     trained = true;
 };
 
-double svmClassification::run(const std::vector<double> &inputVector) {
+template<typename T>
+T svmClassification<T>::run(const std::vector<T> &inputVector) {
     if (trained) {
         double predictedClass = 0.;
         
@@ -221,7 +237,7 @@ double svmClassification::run(const std::vector<double> &inputVector) {
         }
         inputNodes[numInputs].index = -1;
         inputNodes[numInputs].value = 0;
-
+        
         predictedClass = LIBSVM::svm_predict(model, inputNodes);
         delete[] inputNodes;
         return predictedClass;
@@ -230,17 +246,24 @@ double svmClassification::run(const std::vector<double> &inputVector) {
     }
 }
 
-int svmClassification::getNumInputs() const {
+template<typename T>
+int svmClassification<T>::getNumInputs() const {
     return 0;
 };
 
-std::vector<int> svmClassification::getWhichInputs() const {
+template<typename T>
+std::vector<int> svmClassification<T>::getWhichInputs() const {
     std::vector<int> returnVec;
     return returnVec;
 };
 
 #ifndef EMSCRIPTEN
-void svmClassification::getJSONDescription(Json::Value &currentModel){
+template<typename T>
+void svmClassification<T>::getJSONDescription(Json::Value &currentModel){
     
 };
 #endif
+
+//explicit instantiation
+template class svmClassification<double>;
+template class svmClassification<float>;

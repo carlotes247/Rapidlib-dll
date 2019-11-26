@@ -1,21 +1,28 @@
+//
+//  seriesClassification.h
+//  RapidLib
+//
+//  Created by mzed on 13/06/2017.
+//  Copyright © 2017 Goldsmiths. All rights reserved.
+//
+
+
 #ifndef seriesClassificationEmbindings_h
 #define seriesClassificationEmbindings_h
 
-#include <emscripten.h>
-#include <bind.h>
+#include <emscripten/bind.h>
 
 using namespace emscripten;
 
 EMSCRIPTEN_BINDINGS(seriesClassification_module) {
-  class_<seriesClassification>("SeriesClassificationCpp") //name change so that I can wrap it in Javascript. -mz
+  class_<seriesClassificationTemplate<double> >("SeriesClassificationCpp") //name change so that I can wrap it in Javascript. -mz
     .constructor()
-    .function("addTrainingSet", &seriesClassification::addTrainingSet)
-    .function("train", &seriesClassification::train)
-    .function("reset", &seriesClassification::reset)
-    .function("runTrainingSet", &seriesClassification::runTrainingSet)
-    .function("getCosts", select_overload<std::vector<double>()>(&seriesClassification::getCosts))
+    .function("reset", &seriesClassificationTemplate<double>::reset)
+    .function("train", &seriesClassificationTemplate<double>::train)
+    .function("run", select_overload<std::string(const std::vector<std::vector<double>>&)>(&seriesClassificationTemplate<double>::run))
+    .function("runLabel", select_overload<double(const std::vector<std::vector<double>>&, std::string)>(&seriesClassificationTemplate<double>::run))
+    .function("getCosts", &seriesClassificationTemplate<double>::getCosts)
     ;
-
 };
 
 #endif

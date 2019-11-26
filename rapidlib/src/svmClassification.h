@@ -1,3 +1,12 @@
+/**
+ * @file svmClassification.h
+ * RapidLib
+ *
+ * @author Michael Zbyszynski
+ * @date 23 Feb 2017
+ * @copyright Copyright © 2017 Goldsmiths. All rights reserved.
+ */
+
 #ifndef svm_h
 #define svm_h
 
@@ -5,8 +14,8 @@
 #include "baseModel.h"
 #include "../dependencies/libsvm/libsvm.h"
 
-
-class svmClassification : public baseModel {
+template<typename T>
+class svmClassification final : public baseModel<T> {
     
 public:
     enum SVMType{ C_SVC = 0, NU_SVC, ONE_CLASS, EPSILON_SVR, NU_SVR };
@@ -56,15 +65,15 @@ public:
      * @param The training set is a vector of training examples that contain both a vector of input values and a double specifying desired output class.
      *
      */
-    void train(const std::vector<trainingExample> &trainingSet);
+    void train(const std::vector<trainingExampleTemplate<T> > &trainingSet) override;
     
     /** Generate an output value from a single input vector.
      * @param A standard vector of doubles to be evaluated.
      * @return A single double: the nearest class as determined by k-nearest neighbor.
      */
-    double run(const std::vector<double> &inputVector);
+    T run(const std::vector<T> &inputVector) override;
     
-    void reset();
+    void reset() override;
     
     /**
      This initializes the SVM settings and parameters.  Any previous model, settings, or problems will be cleared.
@@ -93,12 +102,12 @@ public:
               unsigned int kFoldValue
               );
     
-    int getNumInputs() const;
-    std::vector<int> getWhichInputs() const;
+    int getNumInputs() const override;
+    std::vector<int> getWhichInputs() const override;
     
     
 #ifndef EMSCRIPTEN
-    void getJSONDescription(Json::Value &currentModel);
+    void getJSONDescription(Json::Value &currentModel) override;
 #endif
     
 private:

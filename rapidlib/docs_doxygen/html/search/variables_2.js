@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mymodelset',['myModelSet',['../classmodel_set.html#a390b0b864a8e727f481537b3c37aa721',1,'modelSet']]]
+  ['label',['label',['../structtraining_series_template.html#ab7e7cd4002d6aa9ce674e9d08438f381',1,'trainingSeriesTemplate']]]
 ];

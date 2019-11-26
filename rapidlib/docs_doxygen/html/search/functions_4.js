@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['initialize',['initialize',['../classmodel_set.html#afefb50a0fe8f45821c6a7599784d7eb4',1,'modelSet']]]
+  ['fastdtw',['fastDTW',['../classfast_d_t_w.html#a684af845adef7a1cf5590715c1ea7187',1,'fastDTW']]]
 ];

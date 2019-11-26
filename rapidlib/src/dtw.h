@@ -1,31 +1,38 @@
-//
-//  dtw.h
-//  RapidAPI
-//
-//  Created by mzed on 07/06/2017.
-//  Copyright © 2017 Goldsmiths. All rights reserved.
-//
+/**
+ * @file dtw.h
+ * RapidLib
+ *
+ * @author Michael Zbyszynski
+ * @date 07 Jun 2017
+ * @copyright Copyright © 2017 Goldsmiths. All rights reserved.
+ */
 
 #ifndef dtw_h
 #define dtw_h
 
 #include <vector>
+#include "warpPath.h"
+#include "searchWindow.h"
 
+template<typename T>
 class dtw {
-    
 public:
     dtw();
     ~dtw();
     
-    void setSeries(std::vector<std::vector<double>> newSeries);
-    double run(std::vector<std::vector<double>> inputSeries);
-    void reset();
+    /* Calculates and returns a simple cost value between two input series */
+    T getCost(const std::vector<std::vector<T>> &seriesX, const std::vector<std::vector<T > > &seriesY);
+    
+    /* Calculates both cost and the warp path */
+    warpInfo dynamicTimeWarp(const std::vector<std::vector<T> > &seriesX, const std::vector<std::vector<T> > &seriesY); //This returns everything, including a path
+    
+    /* Calculates both the cost and the warp path, with a given window as a constraint */
+    warpInfo constrainedDTW(const std::vector<std::vector<T> > &seriesX, const std::vector<std::vector<T> > &seriesY, searchWindow<T> window); //This takes a window object
     
 private:
-    std::vector<std::vector<double>> storedSeries;
-    int numFeatures;
-    inline double distanceFunction(std::vector<double> seriesX, std::vector<double> seriesY);
-
+    inline T distanceFunction(const std::vector<T> &pointX, const std::vector<T> &point);
+    std::vector<std::vector<T> > costMatrix;
+    warpPath calculatePath(int seriesXsize, int seriesYsize) const;
 };
 
 #endif /* dtw_h */

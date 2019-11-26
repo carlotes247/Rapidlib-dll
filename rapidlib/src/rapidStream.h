@@ -1,13 +1,18 @@
-/*
- * rapidStream.h
- * Created by Michael Zbyszynski on 6 Feb 2017
- * Copyright © 2017 Goldsmiths. All rights reserved.
+/**
+ * @file    rapidStream.h
+ * @author  Michael Zbyszynski
+ * @date    6 Feb 2017
+ * @copyright Copyright © 2017 Goldsmiths. All rights reserved.
  */
 
 #ifndef rapidStream_h
 #define rapidStream_h
 
 #include <stdint.h>
+#include <atomic>
+#include "../dependencies/bayesfilter/src/BayesianFilter.h"
+
+template<typename T>
 class rapidStream {
 public:
     
@@ -19,7 +24,7 @@ public:
      * Create a circular buffer with an arbitrary number of elements.
      * @param int: number of elements to hold in the buffer
      */
-    rapidStream(int windowSize);
+    rapidStream (int windowSize);
     
     ~rapidStream();
     
@@ -31,74 +36,89 @@ public:
     /** Add a value to a circular buffer whose size is defined at creation.
      * @param double: value to be pushed into circular buffer.
      */
-    void pushToWindow(double input);
+    void pushToWindow (T input);
     
     /** Calculate the first-order difference (aka velocity) between the last two inputs.
      * @return double: difference between last two inputs.
      */
-    double velocity();
+    T velocity() const;
     
     /** Calculate the second-order difference (aka acceleration) over the last three inputs.
      * @return double: acceleration over the last three inputs.
      */
-    double acceleration();
+    T acceleration() const;
     
     /** Find the minimum value in the buffer.
      * @return double: minimum.
      */
-    double minimum();
+    T minimum() const;
     
     /** Find the maximum value in the buffer.
      * @return double: maximum.
      */
-    double maximum();
+    T maximum() const;
+    
+    /** Count the number of zero crossings in the buffer.
+     * @return int: number of zero crossings.
+     */
+    uint32_t numZeroCrossings() const;
     
     /** Calculate the sum of all values in the buffer.
-     * @return double: sum.
+     * @return T: sum.
      */
-    double sum();
+    T sum() const;
     
     /** Calculate the mean of all values in the buffer.
      * @return double: mean.
      */
-    double mean();
+    T mean() const;
     
     /** Calculate the standard deviation of all values in the buffer.
      * @return double: standard deviation.
      */
-    double standardDeviation();
+    T standardDeviation() const;
     
     /** Calculate the root mean square of the values in the buffer
      * @return double: rms
      */
-     double rms();
+    T rms() const;
+    
+    /** Non-linear Baysian filtering for EMG envelope extraction.
+     * @return current envelope value
+     */
+    T bayesFilter (T inputValue);
+    void bayesSetDiffusion (float logDiffusion);
+    void bayesSetJumpRate (float jump_rate);
+    void bayesSetMVC (float mvc);
     
     /** Calculate the minimum first-order difference over consecutive inputs in the buffer.
      * @return double: minimum velocity.
      */
-    double minVelocity();
+    T minVelocity() const;
     
     /** Calculate the maximum first-order difference over consecutive inputs in the buffer.
      * @return double: maximum velocity.
      */
-    double maxVelocity();
+    T maxVelocity() const;
     
     /** Calculate the minimum second-order difference over consecutive inputs in the buffer.
      * @return double: minimum acceleration.
      */
-    double minAcceleration();
+    T minAcceleration() const;
     
     /** Calculate the maximum second-order difference over consecutive inputs in the buffer.
      * @return double: maximum acceleration.
      */
-    double maxAcceleration();
-
+    T maxAcceleration() const;
+    
 private:
     uint32_t windowSize;
-    uint32_t windowIndex;
-    double *circularWindow;
+    std::atomic<uint32_t> windowIndex;
+    T *circularWindow;
     
-    double calcCurrentVel(int i);
+    inline T calcCurrentVel (int i) const;
+    
+    BayesianFilter bayesFilt;
 };
 
 

@@ -1,3 +1,11 @@
+/**
+ * @file neuralNetwork.h
+ *  RapidLib
+ *
+ * @date 05 Sep 2016
+ * @copyright Copyright © 2016 Goldsmiths. All rights reserved.
+ */
+
 #ifndef neuralNetwork_h
 #define neuralNetwork_h
 #include <vector>
@@ -15,7 +23,8 @@
  *
  * This class includes both running and training, and constructors for reading trained models from JSON.
  */
-class neuralNetwork : public baseModel {
+template<typename T>
+class neuralNetwork final : public baseModel<T> {
     
 public:
     /** This is the constructor for building a trained model from JSON. */
@@ -23,12 +32,12 @@ public:
                   const std::vector<int> &which_inputs,
                   const int &num_hidden_layers,
                   const int &num_hidden_nodes,
-                  const std::vector<double> &weights,
-                  const std::vector<double> &wHiddenOutput,
-                  const std::vector<double> &inRanges,
-                  const std::vector<double> &inBases,
-                  const double &outRange,
-                  const double &outBase);
+                  const std::vector<T> &weights,
+                  const std::vector<T> &wHiddenOutput,
+                  const std::vector<T> &inRanges,
+                  const std::vector<T> &inBases,
+                  const T &outRange,
+                  const T &outBase);
     
     /** This constructor creates a neural network that needs to be trained.
      *
@@ -48,30 +57,37 @@ public:
     ~neuralNetwork();
     
     /** Generate an output value from a single input vector.
-     * @param A standard vector of doubles that feed-forward regression will run on.
-     * @return A single double, which is the result of the feed-forward operation
+     * @param A standard vector of type T that feed-forward regression will run on.
+     * @return A single value, which is the result of the feed-forward operation
      */
-    double run(const std::vector<double> &inputVector);
+    T run(const std::vector<T> &inputVector) override;
     
-    void reset();
+    void reset() override;
     
-    int getNumInputs() const;
-    std::vector<int> getWhichInputs() const;
+    int getNumInputs() const override;
+    std::vector<int> getWhichInputs() const override;
+    
     int getNumHiddenLayers() const;
+    void setNumHiddenLayers(int num_hidden_layers);
+    
     int getNumHiddenNodes() const;
+    void setNumHiddenNodes(int num_hidden_nodes);
     
-    std::vector<double> getWeights() const;
-    std::vector<double> getWHiddenOutput() const;
+    int getEpochs() const;
+    void setEpochs(const int &epochs);
     
-    std::vector<double> getInRanges() const;
-    std::vector<double> getInBases() const;
-    double getOutRange() const;
-    double getOutBase() const;
-
+    std::vector<T> getWeights() const;
+    std::vector<T> getWHiddenOutput() const;
+    
+    std::vector<T> getInRanges() const;
+    std::vector<T> getInBases() const;
+    T getOutRange() const;
+    T getOutBase() const;
+    
 #ifndef EMSCRIPTEN
-    void getJSONDescription(Json::Value &currentModel);
+    void getJSONDescription(Json::Value &currentModel) override;
 #endif
-
+    
     
 private:
     /** Parameters that describe the topography of the model */
@@ -81,54 +97,54 @@ private:
     int numHiddenNodes;
     
     /** Neurons: state is updated on each process(). */
-    std::vector<double> inputNeurons;
-    std::vector<std::vector<double> > hiddenNeurons;
-    double outputNeuron;
+    std::vector<T> inputNeurons;
+    std::vector<std::vector<T> > hiddenNeurons;
+    T outputNeuron;
     
     /** Weights between layers and nodes are kept here. */
-    std::vector<std::vector<std::vector<double>>> weights;
-    std::vector<double> wHiddenOutput;
+    std::vector<std::vector<std::vector<T> > > weights;
+    std::vector<T> wHiddenOutput;
     
     /** Normalization parameters */
-    std::vector<double> inRanges;
-    std::vector<double> inBases;
-    double outRange;
-    double outBase;
+    std::vector<T> inRanges;
+    std::vector<T> inBases;
+    T outRange;
+    T outBase;
     
     /** Sigmoid function for activating hidden nodes. */
-    inline double activationFunction(double);
+    inline T activationFunction(T);
     
     ////////////////////////////////////////////////////////////////////////////
-    /** These pertain to the training, and aren't need to run a trained model */
+    /// These pertain to the training, and aren't need to run a trained model //
+    
 public:
     /** Train a model using backpropagation.
      *
-     * @param The training set is a vector of training examples that contain both a vector of input values and a double specifying desired output.
+     * @param The training set is a vector of training examples that contain both a vector of input values and a value specifying desired output.
      *
      */
-    void train(const std::vector<trainingExample> &trainingSet);
+    void train(const std::vector<trainingExampleTemplate<T> > &trainingSet) override;
     
 private:
     /** Parameters that influence learning */
-    double learningRate;
-    double momentum;
+    T learningRate;
+    T momentum;
     int numEpochs;
     
     /** These deltas are applied to the weights in the network */
-    std::vector<std::vector< std::vector<double> > > deltaWeights;
-    std::vector<double> deltaHiddenOutput;
+    std::vector<std::vector< std::vector<T> > > deltaWeights;
+    std::vector<T> deltaHiddenOutput;
     
     /** Parameters and functions for calculating amount of change for each weight */
-    std::vector<double> hiddenErrorGradients;
-    double outputErrorGradient;
-    inline double getHiddenErrorGradient(int layer, int neuron);
+    T outputErrorGradient;
+    inline T getHiddenErrorGradient(int layer, int neuron);
     
     void initTrainer();
     
     /** Propagate output error back through the network.
      * @param The desired output of the network is fed into the function, and compared with the actual output
      */
-    void backpropagate(const double &desiredOutput);
+    void backpropagate(const T &desiredOutput);
     
     /** Apply corrections to network weights, based on output error */
     void updateWeights();

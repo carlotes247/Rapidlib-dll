@@ -1,3 +1,11 @@
+//
+//  knnClassification.h
+//  RapidLib
+//
+//  Created by mzed on 05/09/2016.
+//  Copyright © 2016 Goldsmiths. All rights reserved.
+//
+
 #ifndef knnClassification_h
 #define knnClassification_h
 
@@ -9,7 +17,8 @@
 #endif
 
 /** Class for implementing a knn classifier */
-class knnClassification : public baseModel {
+template<typename T>
+class knnClassification final : public baseModel<T> {
     
 public:
     /** Constructor that takes training examples in
@@ -20,7 +29,7 @@ public:
      */
     knnClassification(const int &num_inputs,
                       const std::vector<int> &which_inputs,
-                      const std::vector<trainingExample> &trainingSet,
+                      const std::vector<trainingExampleTemplate<T> > &trainingSet,
                       const int k);
     ~knnClassification();
     
@@ -28,25 +37,33 @@ public:
      * @param class number of example
      * @param feature vector of example
      */
-    void addNeighbour(const int &classNum, const std::vector<double> &features);
+    void addNeighbour(const int &classNum, const std::vector<T> &features);
     
     /** Generate an output value from a single input vector.
-     * @param A standard vector of doubles to be evaluated.
-     * @return A single double: the nearest class as determined by k-nearest neighbor.
+     * @param A standard vector of type T to be evaluated.
+     * @return A single value of type T: the nearest class as determined by k-nearest neighbor.
      */
-    double run(const std::vector<double> &inputVector);
+    T run(const std::vector<T> &inputVector) override;
     
     /** Fill the model with a vector of examples.
      *
-     * @param The training set is a vector of training examples that contain both a vector of input values and a double specifying desired output class.
+     * @param The training set is a vector of training examples that contain both a vector of input values and a value specifying desired output class.
      *
      */
-    void train(const std::vector<trainingExample> &trainingSet);
+    void train(const std::vector<trainingExampleTemplate<T> > &trainingSet) override;
     
-    void reset();
+    /** Reset the model to its empty state. */
+    void reset() override;
     
-    int getNumInputs() const;
-    std::vector<int> getWhichInputs() const;
+    /** Find out how many inputs the model expects
+     * @return Integer number of intpus
+     */
+    int getNumInputs() const override;
+    
+    /** Find out which inputs in a vector will be used
+     * @return Vector of ints, specifying input indices.
+     */
+    std::vector<int> getWhichInputs() const override;
     
     /** Get the number of nearest neighbours used by the kNN algorithm. */
     int getK() const;
@@ -56,17 +73,20 @@ public:
     void setK(int newK);
     
 #ifndef EMSCRIPTEN
-    void getJSONDescription(Json::Value &currentModel);
+    /** Populate a JSON value with a description of the current model
+     * @param A JSON value to be populated
+     */
+    void getJSONDescription(Json::Value &currentModel) override;
 #endif
     
 private:
     int numInputs;
     std::vector<int> whichInputs;
-    std::vector<trainingExample> neighbours;
+    std::vector<trainingExampleTemplate<T>> neighbours;
     int desiredK; //K that user asked for might be limited but number of examples
     int currentK; //K minimum of desiredK or neighbours.size()
     inline void updateK();
-    std::pair<int, double>* nearestNeighbours;
+    std::pair<int, T>* nearestNeighbours;
 };
 
 #endif
