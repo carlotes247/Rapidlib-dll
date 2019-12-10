@@ -209,10 +209,16 @@ extern "C"
 		model->reset();
 	}
 
-	EXPORT_API void runSeriesClassificationContinuous(seriesClassification *model, std::vector<double> *runningSerie, const char *outputString) {
+	EXPORT_API const char * runSeriesClassification(seriesClassification *model, trainingSeries *runningSeries) {
 		//model->reset();
 		//return 0;	
-		outputString = model->runContinuous(*runningSerie).c_str();
+		std::string outputDTW = model->run(runningSeries->input);
+		// I need to add an offset to return this to C#
+		char * stringToReturn = new char[outputDTW.size() + 1];
+		std::copy(outputDTW.begin(), outputDTW.end(), stringToReturn);
+		// Add last char to mark the end of the string (I think?)
+		stringToReturn[outputDTW.size()] = '\0';
+		return stringToReturn;
 	}
 
 	EXPORT_API int getSeriesClassificationCosts(seriesClassification *model, double *output, int numOutputs) {
