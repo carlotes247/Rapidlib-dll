@@ -22,6 +22,27 @@ std::vector < std::unique_ptr <std::vector<trainingExample>> > training_sets;
 extern "C"
 {
 
+#pragma region Test Method
+
+	//Exported method that adds a parameter text to an additional text and returns them combined.
+	EXPORT_API char *getCharArray(char* parameterText)
+	{
+		const char* additionalText = " world!";
+
+		if (strlen(parameterText) + strlen(additionalText) + 1 > 256)
+		{
+			const char* message = "Error: Maximum size of the char array is 256 chars.";
+			return (char*)message;
+		}
+
+		char combinedText[256] = "";
+
+		strcpy_s(combinedText, 256, parameterText);
+		strcat_s(combinedText, 256, additionalText);
+
+		return (char*)combinedText;
+	}
+
 #pragma region Model Creation
 
 	EXPORT_API regression * createRegressionModel() {
