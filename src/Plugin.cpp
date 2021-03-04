@@ -43,6 +43,9 @@ extern "C"
 		return (char*)combinedText;
 	}
 
+#pragma endregion
+
+
 #pragma region Model Creation
 
 	EXPORT_API regression * createRegressionModel() {
