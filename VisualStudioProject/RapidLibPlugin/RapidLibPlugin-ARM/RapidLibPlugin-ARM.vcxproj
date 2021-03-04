@@ -156,9 +156,52 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\rapidlib\dependencies\bayesfilter\src\BayesianFilter.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\dependencies\bayesfilter\src\filter_utilities.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\dependencies\jsoncpp.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\dependencies\libsvm\libsvm.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\src\classification.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\src\dtw.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\src\fastDTW.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\src\knnClassification.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\src\modelSet.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\src\neuralNetwork.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\src\rapidStream.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\src\regression.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\src\searchWindow.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\src\seriesClassification.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\src\svmClassification.cpp" />
+    <ClCompile Include="..\..\..\rapidlib\src\warpPath.cpp" />
     <ClCompile Include="RapidLibPlugin_ARM.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\rapidlib\dependencies\bayesfilter\src\BayesianFilter.h" />
+    <ClInclude Include="..\..\..\rapidlib\dependencies\bayesfilter\src\filter_utilities.h" />
+    <ClInclude Include="..\..\..\rapidlib\dependencies\json\json-forwards.h" />
+    <ClInclude Include="..\..\..\rapidlib\dependencies\json\json.h" />
+    <ClInclude Include="..\..\..\rapidlib\dependencies\libsvm\libsvm.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\baseModel.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\classification.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\dtw.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\emscripten\classificationEmbindings.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\emscripten\knnEmbindings.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\emscripten\modelSetEmbindings.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\emscripten\nnEmbindings.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\emscripten\rapidStreamEmbindings.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\emscripten\regressionEmbindings.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\emscripten\seriesClassificationEmbindings.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\emscripten\svmEmbindings.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\fastDTW.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\knnClassification.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\modelSet.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\neuralNetwork.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\rapidStream.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\regression.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\searchWindow.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\seriesClassification.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\svmClassification.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\trainingExample.h" />
+    <ClInclude Include="..\..\..\rapidlib\src\warpPath.h" />
     <ClInclude Include="RapidLibPlugin_ARM.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
