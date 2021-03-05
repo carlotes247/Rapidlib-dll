@@ -138,19 +138,19 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{0c2e5447-f964-46cb-8c12-bdf4bfe5f796}</UniqueIdentifier>
+      <UniqueIdentifier>{001cd865-675b-44eb-947c-dde8d07af80a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\rapidlib">
-      <UniqueIdentifier>{4800fe30-74c9-44d8-a7e1-ad829ea67c60}</UniqueIdentifier>
+      <UniqueIdentifier>{60b299f3-26d5-4a26-bcdf-f0cd684d3de7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\rapidlib\dependencies">
-      <UniqueIdentifier>{4f3741d6-ef2b-485c-b1b4-a8845a20672f}</UniqueIdentifier>
+      <UniqueIdentifier>{8fff6650-0ca3-4f02-86d3-79a9627921e4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\rapidlib\dependencies\libsvm">
-      <UniqueIdentifier>{9e80162f-11ed-4fcc-b2ef-0735fec82404}</UniqueIdentifier>
+      <UniqueIdentifier>{faeffc61-3e83-4db0-a975-529f0a7789c4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\rapidlib\dependencies\bayesfilter">
-      <UniqueIdentifier>{e7633d86-1874-4736-80a7-e73b3752000c}</UniqueIdentifier>
+      <UniqueIdentifier>{2e5cbe8e-8dbe-4cab-9d2d-1aacefa04ca4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
